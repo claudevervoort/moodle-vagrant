@@ -33,27 +33,46 @@ class http {
 
 class php{
 
-  package { "php5":
+  package { "php5.6":
     ensure => present,
   }
 
-  package { "php5-cli":
+  package { "php5.6-cli":
     ensure => present,
   }
 
-  package { "php5-xdebug":
+  package { "php5.6-xdebug":
     ensure => present,
   }
 
-  package { "php5-mysql":
+  package { "php5.6-gd":
+    ensure => present,
+  }
+  
+  package { "php5.6-zip":
+    ensure => present,
+  }
+  
+  package { "php5.6-intl":
+    ensure => present,
+  }
+  
+  package { "php5.6-mbstring":
     ensure => present,
   }
 
-  package { "php5-imagick":
+  package { "php5.6-mysql":
     ensure => present,
   }
 
-  package { "php5-mcrypt":
+  package { "php5.6-xml":
+    ensure => present,
+  }
+  package { "php5.6-imagick":
+    ensure => present,
+  }
+
+  package { "php5.6-mcrypt":
     ensure => present,
   }
 
@@ -61,19 +80,19 @@ class php{
     ensure => present,
   }
 
-  package { "php5-dev":
+  package { "php5.6-dev":
     ensure => present,
   }
 
-  package { "php5-curl":
+  package { "php5.6-curl":
     ensure => present,
   }
 
-  package { "php5-sqlite":
+  package { "php5.6-sqlite":
     ensure => present,
   }
 
-  package { "libapache2-mod-php5":
+  package { "libapache2-mod-php5.6":
     ensure => present,
   }
 
@@ -94,6 +113,7 @@ class mysql{
   exec { "set-mysql-password":
     command => "mysqladmin -u root password root",
   }
+  
 }
 
 class phpmyadmin{
@@ -104,7 +124,7 @@ class phpmyadmin{
       ensure => present,
       require => [
         Exec['apt-get update'],
-        Package["php5", "php5-mysql", "apache2"],
+        Package["php5.6", "php5.6-mysql", "apache2"],
       ]
   }
 
