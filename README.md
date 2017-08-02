@@ -19,6 +19,14 @@ Changes from original Vagrant was to go to php5.6, and add missing php packages 
   <li>If you need to re-install be sure to first remove the config.php added to your moodle folder</p>
 </ul>
 
+<h2>With ngrok</h2>
+You can expose your local moodle using ngrok (useful when your install must be reachable from the internet, for example for call backs).
+
+Since with the free version domain names will change, I used the following recipe: http://www.inmotionhosting.com/support/edu/moodle/advanced-tutorials/change-url
+
+ngrok http 8458
+
+
 <h2>PHP My Admin</h2>
 <ul>
   <li>Available on localhost:8080/phpmyadmin</li>

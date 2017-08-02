@@ -8,6 +8,12 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "ubuntu/trusty64"
+  
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 4096
+    v.cpus = 2
+  end
+    
 
   forward_port = ->(guest, host = guest) do
     config.vm.network :forwarded_port,
@@ -21,7 +27,8 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "/mindtap-code/sentinel/moodledata", "/var/moodledata", owner: "www-data", group: "www-data"
 
   forward_port[1080]      # mailcatcher
-  forward_port[3306,33306]      # mailcatcher
+  forward_port[80, 8458]
+  forward_port[3306,33306]      # mysql
 
   # Getting rid of older PHP5 version
   
@@ -38,9 +45,13 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "echo \"SET GLOBAL innodb_file_format=Barracuda;\" | /usr/bin/mysql -uroot -proot"
   config.vm.provision :shell, :inline => "echo \"SET GLOBAL innodb_large_prefix=ON;\" | /usr/bin/mysql -uroot -proot"
   config.vm.provision :shell, :inline => "echo \"SET GLOBAL innodb_file_per_table=ON;\" | /usr/bin/mysql -uroot -proot"
+  config.vm.provision :shell, :inline => "echo \"SET GLOBAL innodb_file_per_table=ON;\" | /usr/bin/mysql -uroot -proot"
   config.vm.provision :shell, :inline => "echo \"*/1 * * * * /usr/bin/php5.6  /var/www/html/admin/cli/cron.php >/dev/null\" | sudo crontab -u www-data -"
-  config.vm.provision :shell, :inline => "rm /var/wwww/html/index.html"
+  config.vm.provision :shell, :inline => "sudo rm /var/wwww/html/index.html"
+  config.vm.provision :shell, :inline => "echo \"GRANT ALL PRIVILEGES ON *.* TO root@'%';\" | /usr/bin/mysql -uroot -proot"
+  config.vm.provision :shell, :inline => "sudo sed -i.orig 's/^bind-address.*/bind-address\t= 0.0.0.0/' /etc/mysql/my.cnf"
   
 
-  config.vm.network :private_network, ip: "192.168.10.10"
+  #config.vm.network :private_network, ip: "192.168.10.120"
+  config.vm.network :private_network, type: "dhcp"
 end
