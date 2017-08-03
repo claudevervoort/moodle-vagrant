@@ -33,46 +33,46 @@ class http {
 
 class php{
 
-  package { "php5.6":
+  package { "php7.0":
     ensure => present,
   }
 
-  package { "php5.6-cli":
+  package { "php7.0-cli":
     ensure => present,
   }
 
-  package { "php5.6-xdebug":
+  package { "php7.0-xdebug":
     ensure => present,
   }
 
-  package { "php5.6-gd":
+  package { "php7.0-gd":
     ensure => present,
   }
   
-  package { "php5.6-zip":
+  package { "php7.0-zip":
     ensure => present,
   }
   
-  package { "php5.6-intl":
+  package { "php7.0-intl":
     ensure => present,
   }
   
-  package { "php5.6-mbstring":
+  package { "php7.0-mbstring":
     ensure => present,
   }
 
-  package { "php5.6-mysql":
+  package { "php7.0-mysql":
     ensure => present,
   }
 
-  package { "php5.6-xml":
+  package { "php7.0-xml":
     ensure => present,
   }
-  package { "php5.6-imagick":
+  package { "php7.0-imagick":
     ensure => present,
   }
 
-  package { "php5.6-mcrypt":
+  package { "php7.0-mcrypt":
     ensure => present,
   }
 
@@ -80,19 +80,19 @@ class php{
     ensure => present,
   }
 
-  package { "php5.6-dev":
+  package { "php7.0-dev":
     ensure => present,
   }
 
-  package { "php5.6-curl":
+  package { "php7.0-curl":
     ensure => present,
   }
 
-  package { "php5.6-sqlite":
+  package { "php7.0-sqlite":
     ensure => present,
   }
 
-  package { "libapache2-mod-php5.6":
+  package { "libapache2-mod-php7.0":
     ensure => present,
   }
 
@@ -124,7 +124,7 @@ class phpmyadmin{
       ensure => present,
       require => [
         Exec['apt-get update'],
-        Package["php5.6", "php5.6-mysql", "apache2"],
+        Package["php7.0", "php7.0-mysql", "apache2"],
       ]
   }
 
@@ -150,4 +150,4 @@ include base
 include http
 include php
 include mysql
-include phpmyadmin
+#include phpmyadmin
